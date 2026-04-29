@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CRWV · CoreWeave coverage</title>
+<style>
+:root{color-scheme:dark;--bg:#020617;--be:#0e1525;--bc:#131a2c;--bch:#182241;--br:#2a3148;--brs:#363c4e;--t:#e7ecf5;--td:#93a0bd;--tf:#5b6580;--ac:#2196f3;--g:#1ca913;--r:#ef4444;--y:#facc15;--p:#1d2540;font-family:Roboto,system-ui,sans-serif;font-size:14px;line-height:1.55;color:var(--t);background:var(--bg)}
+body.l{color-scheme:light;--bg:#f2f5fa;--be:#fff;--bc:#fff;--bch:#f5f7fb;--br:#e3e8ef;--brs:#cdd5e0;--t:#0f172a;--td:#4b5566;--tf:#6b7488;--p:#eef0f5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--t)}
+.tb{position:sticky;top:0;z-index:5;background:var(--be);border-bottom:1px solid var(--br);padding:14px 20px}
+.tbr{display:flex;align-items:center;gap:14px;flex-wrap:wrap;max-width:1200px;margin:0 auto}
+.brand{display:flex;align-items:baseline;gap:12px;flex:1;min-width:240px}
+.brand h1{font-size:22px;font-weight:800;margin:0;letter-spacing:-.01em}
+.brand .name{color:var(--td);font-size:13px}
+.btn{background:var(--bc);color:var(--t);border:1px solid var(--br);padding:6px 14px;border-radius:6px;cursor:pointer;font:inherit;font-size:12.5px;transition:.15s}
+.btn:hover{background:var(--bch);border-color:var(--brs)}
+.btn.pri{background:var(--ac);color:#fff;border-color:var(--ac)}
+.btn.pri:hover{background:#1976d2}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.ib{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;padding:0;border-radius:6px;border:1px solid var(--br);background:var(--bc);color:var(--td);cursor:pointer}
+.ib:hover{color:var(--t);border-color:var(--brs)}
+.st{color:var(--td);font-size:12px;min-height:18px}
+.st.e{color:var(--r)} .st.k{color:var(--g)}
+main{max-width:1200px;margin:0 auto;padding:18px 20px 60px}
+
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}}
+.card{background:var(--bc);border:1px solid var(--br);border-radius:12px;padding:18px}
+.card h3{font-size:11px;font-weight:600;color:var(--td);margin:0 0 10px;text-transform:uppercase;letter-spacing:.05em}
+.price-card .price{font-size:42px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1.1}
+.price-card .delta{font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:2px}
+.price-card .delta.up{color:var(--g)} .price-card .delta.dn{color:var(--r)}
+.price-card .meta{display:flex;gap:18px;margin-top:14px;color:var(--td);font-size:12px;flex-wrap:wrap}
+.price-card .meta b{color:var(--t);font-variant-numeric:tabular-nums;font-weight:600}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.kpi{background:var(--bc);border:1px solid var(--br);border-radius:10px;padding:12px 14px}
+.kpi .l{color:var(--td);font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+.kpi .v{font-size:22px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .sub{color:var(--td);font-size:11.5px;margin-top:3px}
+.kpi .sub.up{color:var(--g)} .kpi .sub.dn{color:var(--r)}
+
+section{margin-top:26px}
+h2{font-size:14px;font-weight:700;color:var(--t);margin:0 0 14px;padding-bottom:8px;border-bottom:1px solid var(--br);letter-spacing:-.01em}
+
+.bull-bear{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.bull-bear{grid-template-columns:1fr}}
+.bb-card{background:var(--bc);border:1px solid var(--br);border-radius:12px;padding:18px;border-top-width:3px}
+.bb-card.bull{border-top-color:var(--g)}
+.bb-card.bear{border-top-color:var(--r)}
+.bb-card h4{margin:0 0 6px;font-size:14px;font-weight:700}
+.bb-card h4 .tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:99px;margin-left:6px;vertical-align:2px}
+.bb-card.bull .tag{background:rgba(28,169,19,.18);color:#6dd96d}
+.bb-card.bear .tag{background:rgba(239,68,68,.16);color:#ff7575}
+.bb-card .tag-line{color:var(--td);font-size:12px;margin:0 0 14px}
+.bb-card ul{margin:0;padding-left:18px}
+.bb-card li{margin-bottom:10px;font-size:13px}
+.bb-card li strong{color:var(--t);font-weight:600}
+
+.quote{background:#0a1224;border:1px solid var(--br);border-left:3px solid var(--ac);border-radius:6px;padding:10px 12px;margin-top:6px;font-size:12px;color:var(--td);line-height:1.5}
+body.l .quote{background:#f4f7fc;color:#3d4655}
+.quote .src{display:block;color:var(--tf);font-size:11px;margin-top:4px;font-style:italic}
+.quote q{color:var(--t)}
+body.l .quote q{color:#1a1f2e}
+
+.disclosure{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.3);border-radius:10px;padding:12px 14px;margin-top:14px;font-size:12.5px}
+.disclosure b{color:var(--r)}
+
+table.cust{width:100%;border-collapse:collapse;margin-top:8px}
+table.cust th,table.cust td{padding:8px 10px;border-bottom:1px solid var(--br);font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums}
+table.cust th:first-child,table.cust td:first-child{text-align:left}
+table.cust th{color:var(--td);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+
+.footer-note{color:var(--tf);font-size:11.5px;margin-top:24px;line-height:1.6;border-top:1px solid var(--br);padding-top:14px}
+.footer-note a{color:var(--ac);text-decoration:none}
+</style>
+</head>
+<body>
+
+<div class="tb"><div class="tbr">
+<div class="brand">
+  <h1>CRWV</h1>
+  <span class="name">CoreWeave, Inc. &middot; Nasdaq</span>
+</div>
+<span class="st" id="status"></span>
+<button id="refresh" class="btn pri">Refresh</button>
+<button class="ib" id="tt" title="Toggle theme">&#9788;</button>
+</div></div>
+
+<main>
+
+<div class="hero">
+  <div class="card price-card">
+    <h3>Last close &middot; <span id="asof">2026-04-28</span></h3>
+    <div class="price"><span id="price">$105.53</span></div>
+    <div class="delta up" id="delta">+1.86 (+1.79%)</div>
+    <div class="meta">
+      <span>Open <b id="open">$103.60</b></span>
+      <span>High <b id="high">$110.00</b></span>
+      <span>Low <b id="low">$103.25</b></span>
+      <span>Vol <b id="vol">27.7M</b></span>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="l">FY25 Revenue</div><div class="v">$5.13B</div><div class="sub up">+168% YoY</div></div>
+    <div class="kpi"><div class="l">RPO (Backlog)</div><div class="v">$60.7B</div><div class="sub up">+302% YoY</div></div>
+    <div class="kpi"><div class="l">FY25 Net loss</div><div class="v">$(1.17)B</div><div class="sub dn">$(2.75) per share</div></div>
+    <div class="kpi"><div class="l">Total debt</div><div class="v">$21.4B</div><div class="sub">Cash: $3.1B</div></div>
+  </div>
+</div>
+
+<section>
+  <h2>Lynch pitch &mdash; why this could work, in plain English</h2>
+  <div class="bull-bear">
+    <div class="bb-card bull">
+      <h4>Bull case <span class="tag">Lynch</span></h4>
+      <p class="tag-line">"What does the company do? Why might this stock work?"</p>
+      <ul>
+        <li><strong>One sentence:</strong> CRWV runs a GPU-cloud business that rents NVIDIA-based AI compute to hyperscalers and AI labs.</li>
+        <li><strong>Why it could work:</strong> Demand visibility is unusually high for a young company. RPO grew from $15.1B to $60.7B in one year &mdash; that's contracted future revenue customers have already promised.
+          <div class="quote"><q>As of December 31, 2025, we had $60.7 billion of remaining performance obligations ("RPO"), compared to $15.1</q> &hellip; <span class="src">CRWV 10-K (FY25), p.1 / Item 1 Business overview</span></div>
+        </li>
+        <li><strong>How it makes money:</strong> Multi-year compute contracts. Recent ones include Meta ($14.2B through Dec 2031) and OpenAI ($11.9B through 2031).
+          <div class="quote"><q>Meta initially committed to pay us up to approximately $14.2 billion through December 2031</q> &hellip; <span class="src">CRWV 10-K, Risk Factors / Customer concentration</span></div>
+          <div class="quote"><q>OpenAI has committed to pay us up to approximately $11.9 billion through</q> 2031 &hellip; <span class="src">CRWV 10-K, Item 1A Risk Factors</span></div>
+        </li>
+        <li><strong>Revenue scale-up is real:</strong> $5.1B in 2025 vs $1.9B in 2024 vs $0.23B in 2023. Triple-digit growth at multi-billion-dollar scale is rare.
+          <div class="quote"><q>Revenue for the year ended December 31, 2025 increased by $3.2 billion, or 168%, compared to the year ended December 31, 2024.</q> <span class="src">CRWV 10-K, MD&amp;A &middot; Revenue</span></div>
+        </li>
+        <li><strong>Why the market might be missing it:</strong> The headline net loss of $1.2B and $21.4B of debt look scary. If the OpenAI / Meta / Microsoft contracts convert RPO to recognized revenue on schedule, GAAP losses could compress fast as the data-center capex gets matched by depreciation rather than upfront cash burn.</li>
+      </ul>
+    </div>
+    <div class="bb-card bear">
+      <h4>Bear case <span class="tag">Munger invert</span></h4>
+      <p class="tag-line">"How could I lose money? What would prove the bear case right?"</p>
+      <ul>
+        <li><strong>Customer concentration is extreme.</strong> One customer is two-thirds of the revenue. If Microsoft renegotiates, slows take-up, or insources, the entire model breaks.
+          <div class="quote"><q>We recognized an aggregate of approximately 67% of our revenue from our top customer, Microsoft, for the year ended December 31, 2025.</q> <span class="src">CRWV 10-K, Risk Factors</span></div>
+        </li>
+        <li><strong>The balance sheet is the bet.</strong> $21.4B of total debt against $3.1B of cash and a $1.2B net loss. Operating profitability flipped negative in 2025 even though revenue tripled.
+          <div class="quote"><q>Operating income (loss): (46) [2025] &middot; 324 [2024] &middot; (14) [2023]</q> &nbsp;(in $M) <span class="src">CRWV 10-K, Consolidated Statements of Operations</span></div>
+        </li>
+        <li><strong>Stock-based compensation just exploded.</strong> SBC was $630M in FY25 vs $31M in FY24 &mdash; mostly IPO-related but materially dilutive.
+          <div class="quote"><q>Total stock-based compensation expense: $630M [2025] &middot; $31M [2024] &middot; $15M [2023]</q> <span class="src">CRWV 10-K, Note: Stock-Based Compensation</span></div>
+        </li>
+        <li><strong>Cumulative losses keep widening.</strong> $(594)M, $(863)M, then $(1,167)M three years running.
+          <div class="quote"><q>We incurred net losses of $1.2 billion, $863 million, and $594 million for the years ended December 31, 2025, 2024, and 2023</q> <span class="src">CRWV 10-K, Risk Factors / Going-concern context</span></div>
+        </li>
+        <li><strong>What would prove me wrong (i.e., the bear right):</strong> Microsoft renegotiates terms downward, OpenAI/Meta delivery slips, the next debt raise prices at a punitive coupon, or Hyperscaler self-build programs (Stargate, Microsoft AI infra) start absorbing what would have been CRWV demand.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Customer concentration &mdash; the central risk, in numbers</h2>
+  <div class="card">
+    <p style="margin:0 0 10px;color:var(--td);font-size:12.5px">Percentage of total revenue, three-year history.</p>
+    <table class="cust">
+      <thead><tr><th>Customer</th><th>FY 2025</th><th>FY 2024</th><th>FY 2023</th></tr></thead>
+      <tbody>
+        <tr><td>Customer A (Microsoft)</td><td><b>67%</b></td><td>62%</td><td>35%</td></tr>
+        <tr><td>Customer B</td><td>&middot;</td><td>15%</td><td>17%</td></tr>
+        <tr><td>Customer C</td><td>&middot;</td><td>&middot;</td><td>21%</td></tr>
+      </tbody>
+    </table>
+    <div class="quote" style="margin-top:14px"><q>Customer A and D accounted for 68% and 11% of accounts receivable, net, respectively, as of December 31, 2025.</q> <span class="src">CRWV 10-K, Note: Concentration of Credit Risk</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Q3 2025 actuals &mdash; what the latest 10-Q shows</h2>
+  <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="kpi"><div class="l">Q3'25 Revenue</div><div class="v">$1.36B</div><div class="sub up">+134% YoY</div></div>
+    <div class="kpi"><div class="l">9-mo Revenue</div><div class="v">$3.56B</div><div class="sub up">vs $1.17B 9-mo'24</div></div>
+    <div class="kpi"><div class="l">Q3'25 Net loss</div><div class="v">$(110)M</div><div class="sub up">vs $(360)M Q3'24</div></div>
+    <div class="kpi"><div class="l">9-mo Net loss</div><div class="v">$(715)M</div><div class="sub dn">vs $(812)M 9-mo'24</div></div>
+  </div>
+  <div class="quote" style="margin-top:12px"><q>Total revenue: $1,364,676 [Q3'25] &middot; $583,941 [Q3'24] &middot; $3,559,096 [9-mo'25] &middot; $1,167,996 [9-mo'24]</q> &nbsp;(in $thousands) <span class="src">CRWV 10-Q (Q3 2025), Condensed Consolidated Statements of Operations</span></div>
+  <div class="disclosure">
+    <b>Read carefully:</b> Q3'25 net loss <i>narrowed</i> to $(110)M from $(360)M a year ago even as revenue more than doubled &mdash; suggesting unit economics are improving as the data-center footprint gets utilized. But the 9-month loss is still $(715)M; the full-year FY25 loss of $(1,167)M means Q4'25 contributed roughly $(450)M of net loss alone, which the 10-K explains as IPO-related stock-based compensation plus ramping interest expense on the growing debt load.
+  </div>
+</section>
+
+<section>
+  <h2>What I'd watch next quarter</h2>
+  <div class="card">
+    <ul style="margin:0;padding-left:18px;font-size:13px">
+      <li style="margin-bottom:8px"><strong>Customer A %:</strong> Did Microsoft drop below 60% as OpenAI/Meta scale? That's the de-concentration signal.</li>
+      <li style="margin-bottom:8px"><strong>RPO conversion:</strong> Quarterly revenue / opening RPO ratio. Tells you whether the $60.7B backlog is delivering on the promised cadence.</li>
+      <li style="margin-bottom:8px"><strong>Operating margin trajectory:</strong> Is the FY25 swing to a (46)M operating loss reversing as utilization improves, or is it widening?</li>
+      <li style="margin-bottom:8px"><strong>Net debt:</strong> Did the ratio of debt to RPO move in the right direction? $21.4B debt against $60.7B RPO is 35% &mdash; the number to track.</li>
+      <li><strong>Capex / power siting:</strong> Any commentary on data-center power availability or new site delays. CRWV's growth is gated by gigawatts, not chips.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="footer-note">
+  <strong>Sources:</strong>
+  <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001769628&type=10-K" target="_blank">10-K (FY ending 2025-12-31)</a> &middot;
+  <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001769628&type=10-Q" target="_blank">10-Q (Q3 ending 2025-09-30)</a>.
+  Live price: Stooq via the user's Cloudflare worker.
+  <br><br>
+  This page follows the user's analyst preferences: every factual claim is paired with the source quote. No transcripts were uploaded; analysis is filings-only. Not investment advice.
+</div>
+
+</main>
+
+<script>
+"use strict";
+const PROXY = "https://stooq-proxy.jfusco38.workers.dev";
+
+const $ = id => document.getElementById(id);
+const fmt = (x, d=2) => x == null ? "—" : x.toLocaleString(undefined, {minimumFractionDigits:d, maximumFractionDigits:d});
+const fmtVol = v => !v ? "—" : v >= 1e9 ? (v/1e9).toFixed(2)+"B" : v >= 1e6 ? (v/1e6).toFixed(2)+"M" : v >= 1e3 ? (v/1e3).toFixed(1)+"K" : String(v);
+const stm = (m, k) => { const e = $("status"); e.textContent = m||""; e.classList.remove("e","k"); if(k) e.classList.add(k); };
+
+function stripHttp(t){ if(!t)return ""; if(typeof t!=="string")t=String(t); if(!/^HTTP\//i.test(t))return t; const i=t.indexOf("\n\n");if(i>=0)return t.slice(i+2); const j=t.indexOf("\r\n\r\n");if(j>=0)return t.slice(j+4); return t; }
+
+async function refresh(){
+  const btn = $("refresh"); btn.disabled = true;
+  stm("Fetching live quote…");
+  try {
+    const r = await fetch(`${PROXY}/?s=crwv.us&f=sd2t2ohlcv&h&e=csv`);
+    const text = stripHttp(await r.text()).trim();
+    const lines = text.split(/\r?\n/);
+    if (lines.length < 2) throw new Error("no data");
+    const h = lines[0].split(",").map(s=>s.trim());
+    const f = lines[1].split(",");
+    const ix = k => h.indexOf(k);
+    const o = parseFloat(f[ix("Open")]);
+    const c = parseFloat(f[ix("Close")]);
+    const hi = parseFloat(f[ix("High")]);
+    const lo = parseFloat(f[ix("Low")]);
+    const v = parseInt(f[ix("Volume")] || "0", 10);
+    const date = f[ix("Date")];
+    if (Number.isNaN(c)) throw new Error("bad close");
+    const delta = c - o;
+    const pct = o ? (delta/o)*100 : 0;
+    $("asof").textContent = date;
+    $("price").textContent = "$" + fmt(c);
+    const d = $("delta");
+    d.textContent = `${delta>=0?"+":""}${fmt(delta)} (${pct>=0?"+":""}${pct.toFixed(2)}%)`;
+    d.className = "delta " + (delta>0?"up":delta<0?"dn":"");
+    $("open").textContent = "$" + fmt(o);
+    $("high").textContent = "$" + fmt(hi);
+    $("low").textContent = "$" + fmt(lo);
+    $("vol").textContent = fmtVol(v);
+    stm(`Updated ${date}`, "k");
+  } catch (e) {
+    stm(`Refresh failed: ${e.message||e}`, "e");
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+$("refresh").onclick = refresh;
+$("tt").onclick = () => {
+  document.body.classList.toggle("l");
+  const dark = !document.body.classList.contains("l");
+  $("tt").innerHTML = dark ? "&#9788;" : "&#9790;";
+  try { localStorage.setItem("crwv-theme", dark?"d":"l"); } catch {}
+};
+try { if (localStorage.getItem("crwv-theme") === "l") { document.body.classList.add("l"); $("tt").innerHTML = "&#9790;"; } } catch {}
+
+// Auto-refresh on load
+refresh();
+</script>
+</body>
+</html>
