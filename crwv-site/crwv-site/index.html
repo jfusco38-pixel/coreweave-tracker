@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CRWV · CoreWeave coverage</title>
+<style>
+:root{color-scheme:dark;--bg:#020617;--be:#0e1525;--bc:#131a2c;--bch:#182241;--br:#2a3148;--brs:#363c4e;--t:#e7ecf5;--td:#93a0bd;--tf:#5b6580;--ac:#2196f3;--g:#1ca913;--r:#ef4444;--y:#facc15;--p:#1d2540;font-family:Roboto,system-ui,sans-serif;font-size:14px;line-height:1.55;color:var(--t);background:var(--bg)}
+body.l{color-scheme:light;--bg:#f2f5fa;--be:#fff;--bc:#fff;--bch:#f5f7fb;--br:#e3e8ef;--brs:#cdd5e0;--t:#0f172a;--td:#4b5566;--tf:#6b7488;--p:#eef0f5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--t)}
+.tb{position:sticky;top:0;z-index:5;background:var(--be);border-bottom:1px solid var(--br);padding:14px 20px}
+.tbr{display:flex;align-items:center;gap:14px;flex-wrap:wrap;max-width:1200px;margin:0 auto}
+.brand{display:flex;align-items:baseline;gap:12px;flex:1;min-width:240px}
+.brand h1{font-size:22px;font-weight:800;margin:0;letter-spacing:-.01em}
+.brand .name{color:var(--td);font-size:13px}
+.btn{background:var(--bc);color:var(--t);border:1px solid var(--br);padding:6px 14px;border-radius:6px;cursor:pointer;font:inherit;font-size:12.5px;transition:.15s}
+.btn:hover{background:var(--bch);border-color:var(--brs)}
+.btn.pri{background:var(--ac);color:#fff;border-color:var(--ac)}
+.btn.pri:hover{background:#1976d2}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.ib{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;padding:0;border-radius:6px;border:1px solid var(--br);background:var(--bc);color:var(--td);cursor:pointer}
+.ib:hover{color:var(--t);border-color:var(--brs)}
+.st{color:var(--td);font-size:12px;min-height:18px}
+.st.e{color:var(--r)} .st.k{color:var(--g)}
+main{max-width:1200px;margin:0 auto;padding:18px 20px 60px}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}}
+.card{background:var(--bc);border:1px solid var(--br);border-radius:12px;padding:18px}
+.card h3{font-size:11px;font-weight:600;color:var(--td);margin:0 0 10px;text-transform:uppercase;letter-spacing:.05em}
+.price-card .price{font-size:42px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1.1}
+.price-card .delta{font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:2px}
+.price-card .delta.up{color:var(--g)} .price-card .delta.dn{color:var(--r)}
+.price-card .meta{display:flex;gap:18px;margin-top:14px;color:var(--td);font-size:12px;flex-wrap:wrap}
+.price-card .meta b{color:var(--t);font-variant-numeric:tabular-nums;font-weight:600}
+.kpi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.kpi{background:var(--bc);border:1px solid var(--br);border-radius:10px;padding:12px 14px}
+.kpi .l{color:var(--td);font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+.kpi .v{font-size:22px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .sub{color:var(--td);font-size:11.5px;margin-top:3px}
+.kpi .sub.up{color:var(--g)} .kpi .sub.dn{color:var(--r)}
+section{margin-top:26px}
+h2{font-size:14px;font-weight:700;color:var(--t);margin:0 0 14px;padding-bottom:8px;border-bottom:1px solid var(--br);letter-spacing:-.01em}
+h2 .stale{font-size:10px;font-weight:500;background:rgba(250,204,21,.15);color:#facc15;padding:2px 8px;border-radius:99px;margin-left:8px;vertical-align:2px}
+.bull-bear{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.bull-bear{grid-template-columns:1fr}}
+.bb-card{background:var(--bc);border:1px solid var(--br);border-radius:12px;padding:18px;border-top-width:3px}
+.bb-card.bull{border-top-color:var(--g)}
+.bb-card.bear{border-top-color:var(--r)}
+.bb-card h4{margin:0 0 6px;font-size:14px;font-weight:700}
+.bb-card h4 .tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:99px;margin-left:6px;vertical-align:2px}
+.bb-card.bull .tag{background:rgba(28,169,19,.18);color:#6dd96d}
+.bb-card.bear .tag{background:rgba(239,68,68,.16);color:#ff7575}
+.bb-card .tag-line{color:var(--td);font-size:12px;margin:0 0 14px}
+.bb-card ul{margin:0;padding-left:18px}
+.bb-card li{margin-bottom:10px;font-size:13px}
+.bb-card li strong{color:var(--t);font-weight:600}
+.quote{background:#0a1224;border:1px solid var(--br);border-left:3px solid var(--ac);border-radius:6px;padding:10px 12px;margin-top:6px;font-size:12px;color:var(--td);line-height:1.5}
+body.l .quote{background:#f4f7fc;color:#3d4655}
+.quote .src{display:block;color:var(--tf);font-size:11px;margin-top:4px;font-style:italic}
+.quote q{color:var(--t)} body.l .quote q{color:#1a1f2e}
+.disclosure{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.3);border-radius:10px;padding:12px 14px;margin-top:14px;font-size:12.5px}
+.disclosure b{color:var(--r)}
+table.dt{width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px}
+table.dt th,table.dt td{padding:8px 10px;border-bottom:1px solid var(--br);text-align:right;font-variant-numeric:tabular-nums}
+table.dt th:first-child,table.dt td:first-child,table.dt th.l,table.dt td.l{text-align:left}
+table.dt th{color:var(--td);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+table.dt tr:hover{background:var(--bch)}
+.tx-sale{color:var(--r);font-weight:600}
+.tx-buy{color:var(--g);font-weight:600}
+.tx-prop{color:var(--y);font-weight:500}
+.chart-frame{width:100%;height:480px;border:1px solid var(--br);border-radius:12px;background:var(--bc);overflow:hidden}
+.chart-frame iframe{width:100%;height:100%;border:0}
+.cal-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.cal-row{grid-template-columns:1fr}}
+.countdown{font-size:42px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1.05}
+.countdown small{font-size:14px;color:var(--td);font-weight:500;letter-spacing:0;display:block;margin-top:4px}
+.cd-input{display:flex;gap:8px;align-items:center;margin-top:10px}
+.cd-input input{background:var(--bc);border:1px solid var(--br);color:var(--t);padding:6px 10px;border-radius:6px;font:inherit;font-size:12.5px}
+.news-list{display:flex;flex-direction:column;gap:10px;max-height:460px;overflow:auto}
+.news-item{padding:11px 13px;border:1px solid var(--br);border-radius:8px;background:var(--bc);transition:.12s}
+.news-item:hover{background:var(--bch);border-color:var(--brs)}
+.news-item a{color:var(--t);text-decoration:none;font-weight:500;font-size:13px;line-height:1.4;display:block}
+.news-item a:hover{color:var(--ac)}
+.news-meta{color:var(--td);font-size:11px;margin-top:4px}
+.news-empty{color:var(--td);font-size:12.5px;text-align:center;padding:24px 16px;border:1px dashed var(--br);border-radius:10px}
+.own-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+@media(max-width:760px){.own-grid{grid-template-columns:repeat(2,1fr)}}
+.own-stat{background:var(--bc);border:1px solid var(--br);border-radius:10px;padding:12px 14px}
+.own-stat .l{color:var(--td);font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+.own-stat .v{font-size:22px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
+.own-stat .sub{color:var(--td);font-size:11.5px;margin-top:2px}
+.own-stat .sub.up{color:var(--g)} .own-stat .sub.dn{color:var(--r)}
+.footer-note{color:var(--tf);font-size:11.5px;margin-top:24px;line-height:1.6;border-top:1px solid var(--br);padding-top:14px}
+.footer-note a{color:var(--ac);text-decoration:none}
+</style>
+</head>
+<body>
+
+<div class="tb"><div class="tbr">
+<div class="brand"><h1>CRWV</h1><span class="name">CoreWeave, Inc. &middot; Nasdaq</span></div>
+<span class="st" id="status"></span>
+<button id="refresh" class="btn pri">Refresh</button>
+<a class="ib" id="ghlink" href="https://github.com/jfusco38-pixel/coreweave-tracker" target="_blank" rel="noopener" title="View source on GitHub" style="text-decoration:none">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+  </svg>
+</a>
+<button class="ib" id="tt" title="Toggle theme">&#9788;</button>
+</div></div>
+
+<main>
+
+<div class="hero">
+  <div class="card price-card">
+    <h3>Last close &middot; <span id="asof">2026-04-28</span></h3>
+    <div class="price"><span id="price">$105.53</span></div>
+    <div class="delta up" id="delta">+1.93 (+1.86%)</div>
+    <div class="meta">
+      <span>Open <b id="open">$103.60</b></span>
+      <span>High <b id="high">$110.00</b></span>
+      <span>Low <b id="low">$103.25</b></span>
+      <span>Vol <b id="vol">27.7M</b></span>
+      <span>Mkt cap <b id="mktcap">$55.5B</b></span>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="l">FY25 Revenue</div><div class="v">$5.13B</div><div class="sub up">+168% YoY</div></div>
+    <div class="kpi"><div class="l">RPO (Backlog)</div><div class="v">$60.7B</div><div class="sub up">+302% YoY</div></div>
+    <div class="kpi"><div class="l">FY25 Net loss</div><div class="v">$(1.17)B</div><div class="sub dn">$(2.75) per share</div></div>
+    <div class="kpi"><div class="l">Total debt</div><div class="v">$21.4B</div><div class="sub">Cash: $3.1B</div></div>
+  </div>
+</div>
+
+<section>
+  <h2>Price chart</h2>
+  <div class="chart-frame">
+    <iframe id="tvchart" loading="lazy" allowfullscreen
+      src="https://s.tradingview.com/widgetembed/?frameElementId=tvchart&symbol=NASDAQ%3ACRWV&interval=D&theme=dark&style=1&timezone=America%2FNew_York&studies=Volume%40tv-basicstudies&hide_top_toolbar=0&withdateranges=1&saveimage=0"></iframe>
+  </div>
+</section>
+
+<div class="cal-row">
+  <section style="margin-top:0">
+    <h2>Next earnings</h2>
+    <div class="card">
+      <div class="countdown" id="countdown">&mdash;<small>set the date below</small></div>
+      <div class="cd-input">
+        <input type="date" id="erdate">
+        <button class="btn" id="ersave">Save</button>
+        <span class="st" id="erstatus" style="margin-left:6px"></span>
+      </div>
+      <div style="color:var(--td);font-size:11.5px;margin-top:10px;line-height:1.5">
+        Stored in your browser only. Update when CRWV announces the next call date.
+      </div>
+    </div>
+  </section>
+  <section style="margin-top:0">
+    <h2>News</h2>
+    <div id="tv-news" style="height:480px;border:1px solid var(--br);border-radius:12px;overflow:hidden;background:var(--bc)">
+      <div class="tradingview-widget-container" style="height:100%">
+        <div class="tradingview-widget-container__widget" style="height:100%"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+        {
+          "feedMode": "symbol",
+          "symbol": "NASDAQ:CRWV",
+          "isTransparent": true,
+          "displayMode": "regular",
+          "width": "100%",
+          "height": 478,
+          "colorTheme": "dark",
+          "locale": "en"
+        }
+        </script>
+      </div>
+    </div>
+    <div style="color:var(--tf);font-size:11px;margin-top:8px">News timeline by TradingView. Auto-refreshes.</div>
+  </section>
+</div>
+
+<section>
+  <h2>Ownership &amp; insider activity</h2>
+  <div class="own-grid">
+    <div class="own-stat"><div class="l">Insider own</div><div class="v">39.0%</div><div class="sub dn">−11.6% over period</div></div>
+    <div class="own-stat"><div class="l">Institutional own</div><div class="v">41.7%</div><div class="sub up">+13.0% over period</div></div>
+    <div class="own-stat"><div class="l">Float</div><div class="v">320.6M</div><div class="sub">of 394.0M shares out</div></div>
+    <div class="own-stat"><div class="l">Beta &middot; 52W high</div><div class="v">8.16</div><div class="sub">$187 (now −44%)</div></div>
+  </div>
+  <div class="disclosure">
+    <b>Big read:</b> Insiders are net <i>sellers</i>, institutions are net <i>buyers</i>. The 10b5-1 plans the founders filed in November 2025 are now executing — see the table below. Magnetar (a former major holder) sold ~$300M in the last week of April 2026 alone.
+  </div>
+
+  <h3 style="font-size:12px;color:var(--td);text-transform:uppercase;letter-spacing:.04em;margin:18px 0 8px">Recent insider transactions (Form 144 / Form 4)</h3>
+  <div style="overflow:auto">
+  <table class="dt">
+    <thead><tr><th class="l">Date</th><th class="l">Insider</th><th class="l">Role</th><th class="l">Type</th><th>Price</th><th>Shares</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Apr 28 '26</td><td class="l">Michael Intrator</td><td class="l">Director / CEO</td><td class="l"><span class="tx-prop">Proposed Sale</span></td><td>$112.06</td><td>200,000</td><td>$22.4M</td></tr>
+      <tr><td>Apr 28 '26</td><td class="l">Omnadora Capital LLC</td><td class="l">Director-affiliated</td><td class="l"><span class="tx-prop">Proposed Sale</span></td><td>$112.06</td><td>107,693</td><td>$12.1M</td></tr>
+      <tr><td>Apr 27 '26</td><td class="l">Brannin McBee</td><td class="l">Officer (CDO)</td><td class="l"><span class="tx-prop">Proposed Sale</span></td><td>$110.14</td><td>200,000</td><td>$22.0M</td></tr>
+      <tr><td>Apr 27 '26</td><td class="l">West Clay Capital LLC</td><td class="l">Director-affiliated (Venturo)</td><td class="l"><span class="tx-prop">Proposed Sale</span></td><td>$110.14</td><td>300,000</td><td>$33.0M</td></tr>
+      <tr><td>Apr 27 '26</td><td class="l">McBee 2022 Irrevocable Trust</td><td class="l">Officer-affiliated</td><td class="l"><span class="tx-prop">Proposed Sale</span></td><td>$110.14</td><td>54,150</td><td>$6.0M</td></tr>
+      <tr><td>Apr 27 '26</td><td class="l">Venturo Family GST Trust</td><td class="l">Director-affiliated</td><td class="l"><span class="tx-prop">Proposed Sale</span></td><td>$110.14</td><td>75,000</td><td>$8.3M</td></tr>
+      <tr><td>Apr 27 '26</td><td class="l">Canis Major / Canis Minor GRATs</td><td class="l">Officer-affiliated</td><td class="l"><span class="tx-prop">Proposed Sale</span></td><td>$110.14</td><td>45,850</td><td>$5.0M</td></tr>
+      <tr><td>Apr 22-24 '26</td><td class="l">Magnetar Financial LLC</td><td class="l">Former 5%+ holder</td><td class="l"><span class="tx-sale">Sale</span></td><td>$119–122</td><td>2,738,138</td><td>$334.4M</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div style="color:var(--tf);font-size:11px;margin-top:8px"><i>Source:</i> Finviz quote page (CRWV) → SEC Form 4 / 144 filings. Pulled today.</div>
+
+  <h3 style="font-size:12px;color:var(--td);text-transform:uppercase;letter-spacing:.04em;margin:18px 0 8px">Class structure context</h3>
+  <div class="quote"><q>As of January 31, 2026, CoreWeave, Inc. had outstanding 419,028,081 shares of Class A common stock, 106,660,052 shares of Class B</q> &hellip; <span class="src">CRWV 10-K, Cover page</span></div>
+  <div class="quote"><q>Our Class B common stock has ten votes per share, our Class A common stock has one vote per share &hellip; As of December 31, 2025, our Co-Founders collectively hold all of the issued and outstanding shares of our Class B</q> common stock. <span class="src">CRWV 10-K, Risk Factors</span></div>
+  <div style="color:var(--td);font-size:12.5px;margin-top:8px">Co-founder voting power: <b style="color:var(--t)">~71.8%</b> &middot; Public Class A holders: <b style="color:var(--t)">~28.2%</b></div>
+</section>
+
+<section>
+  <h2>Lynch pitch <span class="stale">static · from FY25 10-K</span></h2>
+  <div class="bull-bear">
+    <div class="bb-card bull">
+      <h4>Bull case <span class="tag">Lynch</span></h4>
+      <p class="tag-line">"What does the company do? Why might this stock work?"</p>
+      <ul>
+        <li><strong>One sentence:</strong> CRWV runs a GPU-cloud business that rents NVIDIA-based AI compute to hyperscalers and AI labs.</li>
+        <li><strong>Demand visibility is unusually high.</strong> RPO grew from $15.1B to $60.7B in one year &mdash; that's contracted future revenue.
+          <div class="quote"><q>As of December 31, 2025, we had $60.7 billion of remaining performance obligations</q> &hellip; <span class="src">CRWV 10-K, Item 1</span></div>
+        </li>
+        <li><strong>Multi-year contracts:</strong> Meta committed up to $14.2B through Dec 2031, OpenAI up to $11.9B through 2031.</li>
+        <li><strong>Revenue scale-up is real:</strong> $0.23B → $1.9B → $5.1B over three years. Triple-digit growth at multi-billion-dollar scale is rare.
+          <div class="quote"><q>Revenue for the year ended December 31, 2025 increased by $3.2 billion, or 168%</q> <span class="src">CRWV 10-K, MD&amp;A</span></div>
+        </li>
+        <li><strong>Why the market might be missing it:</strong> Headline net loss of $1.2B looks scary, but if RPO converts on schedule the GAAP losses compress as data-center capex matches depreciation.</li>
+      </ul>
+    </div>
+    <div class="bb-card bear">
+      <h4>Bear case <span class="tag">Munger invert</span></h4>
+      <p class="tag-line">"How could I lose money? What would prove the bear case right?"</p>
+      <ul>
+        <li><strong>Customer
