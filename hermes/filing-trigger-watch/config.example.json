@@ -1,0 +1,12 @@
+{
+  "watchlist_core": ["<<<SLNH>>>", "<<<KEEL>>>"],
+  "watchlist_rotators": ["<<<remaining tickers>>>"],
+  "sec_user_agent": "<<<Your Name your@email.com>>>",
+  "telegram_chat_id": "<<<your Telegram chat ID>>>",
+  "state_dir": "~/.hermes/state",
+  "log_dir": "~/.hermes/logs",
+  "market_window_et": {"start": "04:00", "end": "20:00", "weekdays_only": true},
+  "form4_min_option_exercise_usd": 50000,
+  "form4_min_open_market_usd": 25000,
+  "max_interrupts_per_day_before_warning": 5
+}
