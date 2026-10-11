@@ -11,22 +11,24 @@ These must run on your PC in Claude Desktop / Cowork. Step 1 uses your signed-in
 
 ## One-time setup
 
-1. **Create the bot.** In Telegram, message @BotFather, send `/newbot`, and copy the token.
-2. **Get your chat ID.**
-   - Send your new bot any message.
-   - Open `https://api.telegram.org/bot<TOKEN>/getUpdates` in a browser and copy `"chat":{"id": ...}`.
-3. **Store both as user environment variables.** Don't put them in any file. In PowerShell, run:
+1. **Create a separate ORACLE bot.** In Telegram, message @BotFather, send `/newbot`, and copy the token.
+   - Don't reuse Brovestor_bot.
+   - Don't reuse `TELEGRAM_BOT_TOKEN`. Hermes reads that variable, and sharing it would make the two bots collide.
+2. **Send the new bot `/start`.** A bot can't message you until you've messaged it first. Without this, sends fail with "chat not found".
+3. **Chat ID:** `8207209026`. That's your Telegram user ID, which is also the chat ID for a direct chat with the bot.
+4. **Store both as user environment variables.** Don't put them in any file. Paste the token straight into the command below; never paste it into a chat. In PowerShell, run:
    ```powershell
-   setx TELEGRAM_BOT_TOKEN "<token>"
-   setx TELEGRAM_CHAT_ID "<chat id>"
+   setx ORACLE_BOT_TOKEN "<token>"
+   setx ORACLE_CHAT_ID "8207209026"
    ```
-   Restart Claude Desktop so it picks them up.
-4. **Test Telegram.** In a new PowerShell window, run:
+   - Use `setx`, not `$env:ORACLE_BOT_TOKEN = ...`. The `$env:` form lasts only for the current PowerShell window, and the scheduled tasks need values that persist.
+   - Restart Claude Desktop so it picks them up.
+5. **Test Telegram.** In a new PowerShell window, run:
    ```powershell
-   curl.exe -s -X POST "https://api.telegram.org/bot$env:TELEGRAM_BOT_TOKEN/sendMessage" --data-urlencode "chat_id=$env:TELEGRAM_CHAT_ID" --data-urlencode "text=ORACLE Sync test"
+   curl.exe -s -X POST "https://api.telegram.org/bot$env:ORACLE_BOT_TOKEN/sendMessage" --data-urlencode "chat_id=$env:ORACLE_CHAT_ID" --data-urlencode "text=ORACLE Sync test"
    ```
    You should get `"ok":true` back and the message on your phone.
-5. **Create three scheduled tasks** in Claude Desktop / Cowork:
+6. **Create three scheduled tasks** in Claude Desktop / Cowork:
 
    | Task | Schedule | Prompt |
    |---|---|---|
@@ -38,7 +40,7 @@ These must run on your PC in Claude Desktop / Cowork. Step 1 uses your signed-in
    - the Chrome browser tool,
    - the IBKR connector, and
    - a shell (PowerShell) for the curl call.
-6. **Do one supervised run** of ORACLE Sync by hand before turning the schedule on.
+7. **Do one supervised run** of ORACLE Sync by hand before turning the schedule on.
 
 ## Notes
 

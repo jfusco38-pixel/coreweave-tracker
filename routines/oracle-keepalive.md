@@ -41,7 +41,7 @@ For "page did not load" or "unavailable" problems, use the same format. Replace 
 How to send:
 1. Use the Write tool to save the message text as UTF-8 to %USERPROFILE%\oracle-sync\msg.txt. Create the folder if needed.
 2. Run this in PowerShell:
-   curl.exe -s -X POST "https://api.telegram.org/bot$env:TELEGRAM_BOT_TOKEN/sendMessage" --data-urlencode "chat_id=$env:TELEGRAM_CHAT_ID" --data-urlencode "text@$env:USERPROFILE\oracle-sync\msg.txt"
+   curl.exe -s -X POST "https://api.telegram.org/bot$env:ORACLE_BOT_TOKEN/sendMessage" --data-urlencode "chat_id=$env:ORACLE_CHAT_ID" --data-urlencode "text@$env:USERPROFILE\oracle-sync\msg.txt"
 3. The send worked if the response contains "ok":true. Do not paste the command line or the token into your output.
 4. If it failed, wait 30 seconds and retry once. If the retry also fails, log the failure and stop.
 

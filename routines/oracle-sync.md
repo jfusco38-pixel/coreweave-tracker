@@ -118,8 +118,8 @@ If the run stopped at STEP 0 (weekend or holiday), send nothing.
 How to send:
 1. Use the Write tool to save the message text as UTF-8 to %USERPROFILE%\oracle-sync\msg.txt. Create the folder if needed. Writing to a file keeps ⚠️, ✅ and "$" safe from shell quoting.
 2. Run this in PowerShell:
-   curl.exe -s -X POST "https://api.telegram.org/bot$env:TELEGRAM_BOT_TOKEN/sendMessage" --data-urlencode "chat_id=$env:TELEGRAM_CHAT_ID" --data-urlencode "text@$env:USERPROFILE\oracle-sync\msg.txt"
-   (In bash, use $TELEGRAM_BOT_TOKEN, $TELEGRAM_CHAT_ID and "$HOME/oracle-sync/msg.txt".)
+   curl.exe -s -X POST "https://api.telegram.org/bot$env:ORACLE_BOT_TOKEN/sendMessage" --data-urlencode "chat_id=$env:ORACLE_CHAT_ID" --data-urlencode "text@$env:USERPROFILE\oracle-sync\msg.txt"
+   (In bash, use $ORACLE_BOT_TOKEN, $ORACLE_CHAT_ID and "$HOME/oracle-sync/msg.txt".)
 3. The send worked if the response contains "ok":true. Do not paste the command line or the token into your output.
 4. If it failed, or if either environment variable is empty, wait 30 seconds and retry once. If the retry also fails, log the failure and stop.
 Never make extra watchlist edits because a message failed.
