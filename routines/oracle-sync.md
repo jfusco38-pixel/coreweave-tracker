@@ -31,6 +31,9 @@ Stopping silently means: no Telegram message, no watchlist edits. Only append th
 STEP 1: READ TODAY'S ORACLE LIST
 Use the browser. Jeff's Chrome is already signed in to StocksToTrade.
 1. Open https://university.stockstotrade.com/page/oracle-tool. Wait until "Loading data..." is gone and "Showing N stocks" appears in the top right.
+   - Wait up to 2 minutes. Take a screenshot every 20–30 seconds to check.
+   - If it is still "Loading data..." after 2 minutes, refresh the page once (Ctrl+F5) and wait up to 2 more minutes.
+   - If it is still loading after that, stop. Close the tab and report "Oracle data did not load (stuck on Loading data...)" in STEP 1. Don't edit the watchlist.
 2. The "Top 10 only" switch next to the Filters button must be OFF. Click it only if it is ON. Record N (normally 20).
 3. Sort by the "Max" column, descending. The first click on the Max header sorts ascending and the second sorts descending. You should then see a down arrow (↓). Take a fresh screenshot before each click.
 4. The table sits in a cross-origin iframe, so the DOM can't read it. Read the Symbol column from zoomed screenshots, and scroll until you've read every row. Record the symbols in Max order and check each one letter by letter. Your row count must equal N.

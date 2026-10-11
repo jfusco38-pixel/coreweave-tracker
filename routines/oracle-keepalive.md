@@ -13,10 +13,11 @@ HARD RULES
 
 STEP 1: STOCKSTOTRADE SESSION
 1. In Jeff's Chrome, open https://university.stockstotrade.com/page/oracle-tool.
-2. Wait up to 60 seconds. One of three things will happen:
-   - "Showing N stocks" appears. The session is OK.
-   - A sign-in or login page appears. StocksToTrade needs sign-in.
-   - Neither appears. Retry once after 30 seconds. If it still fails, record "StocksToTrade page did not load."
+2. Wait up to 60 seconds, then judge the session from what you see:
+   - **Signed in (OK):** the StocksToTrade header shows Jeff's avatar or name in the top right. This counts as OK even if the table is still on "Loading data..." or empty. The Oracle feed often has no data outside market hours (weekends, nights, before 9:30 AM ET).
+   - **Needs sign-in:** a sign-in or login page appears, or the header shows a "Sign in" / "Log in" button instead of the avatar.
+   - **Didn't load:** none of the above (blank page or error). Retry once after 30 seconds. If it still fails, record "StocksToTrade page did not load."
+   You're checking the session here, not the data. Never record a stuck "Loading data..." table as a problem when the avatar is visible.
 3. Close the tab. Don't click anything else on the page.
 If the browser is unavailable, retry twice about 30 seconds apart. If it is still unavailable, record "browser unavailable."
 
